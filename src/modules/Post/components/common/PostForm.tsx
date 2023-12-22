@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
-import MyInput from '../UI/input/MyInput';
-import MyButton from '../UI/button/MyButton';
+import MyInput from '../../../../components/UI/input/MyInput';
+import MyButton from '../../../../components/UI/button/MyButton';
 import { Post, PostFormProps } from '../../types';
 
 const PostForm: React.FC<PostFormProps> = ({ create }) => {

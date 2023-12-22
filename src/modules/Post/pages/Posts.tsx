@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import PostForm from '../components/common/PostForm';
 import PostList from '../components/common/PostList';
 import PostFilter from '../components/common/PostFilter';
-import MyButton from '../components/UI/button/MyButton';
-import MyModal from '../components/UI/MyModal/MyModal';
-import Loader from '../components/UI/Loader/Loader';
+import MyButton from '../../../components/UI/button/MyButton';
+import MyModal from '../../../components/UI/MyModal/MyModal';
+import Loader from '../../../components/UI/Loader/Loader';
 import { usePosts } from '../hooks/usePosts';
-import { useFetching } from '../hooks/useFetching';
-import { useObserver } from '../hooks/useObserver';
-import { getAllPosts } from '../services/PostService';
-import { LIMIT_PER_PAGE } from '../constants';
+import { useFetching } from '../../../hooks/useFetching';
+import { useObserver } from '../../../hooks/useObserver';
+import { LIMIT_PER_PAGE } from '../../../constants';
 import { FilterType, Post } from '../types';
+import { getAllPosts } from '../services/PostService';
 
 const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);

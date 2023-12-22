@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Loader from '../components/UI/Loader/Loader';
-import { useFetching } from '../hooks/useFetching';
-import { getCommentsByPostId, getPostById } from '../services/PostService';
+import Loader from '../../../components/UI/Loader/Loader';
+import { useFetching } from '../../../hooks/useFetching';
 import { Comment, Post } from '../types';
+import { getCommentsByPostId, getPostById } from '../services/PostService';
 
 const PostIdPage: React.FC = () => {
   const params = useParams();

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-
 import { AuthContext } from '../context/index.ts';
 import Loader from '../components/UI/Loader/Loader.tsx';
-import About from '../pages/About.tsx';
-import Posts from '../pages/Posts.tsx';
-import PostIdPage from '../pages/PostIdPage.tsx';
-import Login from '../pages/Login.tsx';
+
+const About = lazy(() => import('../pages/About.tsx'));
+const Posts = lazy(() => import('../modules/Post/pages/Posts.tsx'));
+const PostIdPage = lazy(() => import('../modules/Post/pages/PostIdPage.tsx'));
+const Login = lazy(() => import('../pages/Login.tsx'));
 
 const AppRouter: React.FC = () => {
   const { isAuth, isLoading } = useContext(AuthContext)!;
@@ -16,20 +16,23 @@ const AppRouter: React.FC = () => {
   }
 
   return (
-    <Routes>
-      {isAuth ? (
-        <>
-          <Route path='/about' element={<About />} />
-          <Route path='/posts' element={<Posts />} />
-          <Route path='/posts/:id' element={<PostIdPage />} />
-        </>
-      ) : (
-        <>
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<Navigate to='/login' />} />
-        </>
-      )}
-    </Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        {isAuth ? (
+          <>
+            <Route path='/about' element={<About />} />
+            <Route path='/posts' element={<Posts />} />
+            <Route path='/posts/:id' element={<PostIdPage />} />
+            <Route path='*' element={<Navigate to='/posts' />} />
+          </>
+        ) : (
+          <>
+            <Route path='/login' element={<Login />} />
+            <Route path='*' element={<Navigate to='/login' />} />
+          </>
+        )}
+      </Routes>
+    </Suspense>
   );
 };
 
