@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { LIMIT_PER_PAGE } from '../constants';
 import { Comment, Post } from '../types';
+import { LIMIT_PER_PAGE } from '../../../constants';
 
 export const getAllPosts = async (
   page: number,

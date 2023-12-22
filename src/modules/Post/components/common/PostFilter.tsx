@@ -1,9 +1,9 @@
 import React from 'react';
 import { ChangeEvent } from 'react';
-import MyInput from '../UI/input/MyInput';
+import MyInput from '../../../../components/UI/input/MyInput';
 import MySelect from '../UI/select/MySelect';
 import { Post, PostFilterProps } from '../../types';
-import { selectOptions } from '../../constants';
+import { selectOptions } from '../../../../constants';
 
 const PostFilter: React.FC<PostFilterProps> = ({ filter, setFilter }) => {
   const handleQueryChange = (e: ChangeEvent<HTMLInputElement>) => {
