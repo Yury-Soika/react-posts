@@ -5,13 +5,13 @@ import { AuthContext } from './context';
 import useAuth from './hooks/useAuth';
 
 const App = () => {
-  const { isAuth, setIsAuth, isLoading } = useAuth();
+  const { authUser, setAuthUser, isLoading } = useAuth();
 
   return (
     <AuthContext.Provider
       value={{
-        isAuth,
-        setIsAuth,
+        authUser,
+        setAuthUser,
         isLoading,
       }}
     >

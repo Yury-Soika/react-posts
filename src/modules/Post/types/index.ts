@@ -1,7 +1,8 @@
 export type Post = {
-  id: number;
+  id: string;
   title: string;
-  body: string;
+  description: string;
+  userId: number;
 };
 
 export type FilterType = {
