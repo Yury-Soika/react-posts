@@ -6,6 +6,12 @@ import {
   SetStateAction,
 } from 'react';
 
+export type User = {
+  id: number;
+  email: string;
+  role: string;
+};
+
 export type MyButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type MyInputProps = InputHTMLAttributes<HTMLInputElement>;
@@ -17,9 +23,9 @@ export type MyModalProps = {
 };
 
 export type AuthContextProps = {
-  isAuth: boolean;
+  authUser: User;
   isLoading: boolean;
-  setIsAuth: Dispatch<SetStateAction<boolean>>;
+  setAuthUser: Dispatch<SetStateAction<User>>;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

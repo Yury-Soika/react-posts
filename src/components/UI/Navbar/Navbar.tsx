@@ -4,10 +4,10 @@ import MyButton from '../button/MyButton';
 import { AuthContext } from '../../../context';
 
 const Navbar: React.FC = () => {
-  const { isAuth, setIsAuth } = useContext(AuthContext)!;
+  const { authUser, setAuthUser } = useContext(AuthContext)!;
 
   const logout = () => {
-    setIsAuth!(false);
+    setAuthUser({ id: 0, email: '', role: '' });
     localStorage.removeItem('auth');
   };
 
@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
           Posts
         </Link>
       </div>
-      {isAuth ? (
+      {authUser.id ? (
         <MyButton onClick={logout} className='mr-4'>
           Log out
         </MyButton>

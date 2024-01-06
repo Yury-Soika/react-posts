@@ -9,7 +9,7 @@ const PostIdPage = lazy(() => import('../modules/Post/pages/PostIdPage.tsx'));
 const Login = lazy(() => import('../pages/Login.tsx'));
 
 const AppRouter: React.FC = () => {
-  const { isAuth, isLoading } = useContext(AuthContext)!;
+  const { authUser, isLoading } = useContext(AuthContext);
 
   if (isLoading) {
     return <Loader />;
@@ -18,7 +18,7 @@ const AppRouter: React.FC = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
-        {isAuth ? (
+        {authUser.id ? (
           <>
             <Route path='/about' element={<About />} />
             <Route path='/posts' element={<Posts />} />

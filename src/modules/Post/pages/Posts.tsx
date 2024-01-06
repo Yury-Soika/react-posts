@@ -10,18 +10,24 @@ import { useFetching } from '../../../hooks/useFetching';
 import { useObserver } from '../../../hooks/useObserver';
 import { LIMIT_PER_PAGE } from '../../../constants';
 import { FilterType, Post } from '../types';
-import { getAllPosts } from '../services/PostService';
+import {
+  createNewPost,
+  getAllPosts,
+  deletePost,
+} from '../services/PostService';
 
 const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [modal, setModal] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [filter, setFilter] = useState<FilterType>({
     sort: null,
     query: '',
   });
-  const [modal, setModal] = useState<boolean>(false);
-  const [totalPages, setTotalPages] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
+
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
+
   const lastElement = useRef<HTMLDivElement>(null);
   const initialRender = useRef(true);
 
@@ -48,13 +54,15 @@ const Posts: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  const createPost = (newPost: Post) => {
+  const createPost = async (newPost: Post) => {
     setPosts([...posts, newPost]);
+    await createNewPost(newPost);
     setModal(false);
   };
 
-  const removePost = (post: Post) => {
+  const removePost = async (post: Post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
+    await deletePost(post.id);
   };
 
   return (
