@@ -15,18 +15,9 @@ export type PostFilterProps = {
   setFilter: React.Dispatch<React.SetStateAction<FilterType>>;
 };
 
-export type PostFormProps = {
-  create: (newPost: Post) => void;
-};
-
 export type PostListProps = {
   posts: Post[];
   title: string;
-  remove: (post: Post) => void;
-};
-
-export type PostItemProps = {
-  post: Post;
   remove: (post: Post) => void;
 };
 

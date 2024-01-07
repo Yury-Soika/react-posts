@@ -6,10 +6,11 @@ import {
   SetStateAction,
 } from 'react';
 
-export type User = {
+export type AuthenticatedUser = {
   id: number;
   email: string;
   role: string;
+  authToken: string;
 };
 
 export type MyButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
@@ -23,9 +24,9 @@ export type MyModalProps = {
 };
 
 export type AuthContextProps = {
-  authUser: User;
+  authUser: AuthenticatedUser;
   isLoading: boolean;
-  setAuthUser: Dispatch<SetStateAction<User>>;
+  setAuthUser: Dispatch<SetStateAction<AuthenticatedUser>>;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,3 +39,12 @@ export type FetchingResult = [
   Dispatch<SetStateAction<boolean>>,
   Dispatch<SetStateAction<string>>,
 ];
+
+export type FormProps<T> = {
+  create: (newItem: T) => void;
+};
+
+export type ItemProps<T> = {
+  item: T;
+  remove: (item: T) => void;
+};

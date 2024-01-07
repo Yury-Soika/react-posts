@@ -2,11 +2,12 @@ import React, { useState, FormEvent, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import MyInput from '../../../../components/UI/input/MyInput';
 import MyButton from '../../../../components/UI/button/MyButton';
-import { Post, PostFormProps } from '../../types';
+import { Post } from '../../types';
 import { AuthContext } from '../../../../context';
+import { FormProps } from '../../../../types';
 
-const PostForm: React.FC<PostFormProps> = ({ create }) => {
-  const { authUser } = useContext(AuthContext)!;
+const PostForm: React.FC<FormProps<Post>> = ({ create }) => {
+  const { authUser } = useContext(AuthContext);
 
   const [post, setPost] = useState({ title: '', description: '' });
 
