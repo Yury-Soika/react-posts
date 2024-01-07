@@ -11,7 +11,7 @@ const PostList: React.FC<PostListProps> = ({ posts, title, remove }) => {
     <div>
       <h1 style={{ textAlign: 'center' }}>{title}</h1>
       {posts.map((post) => (
-        <PostItem key={post.id} remove={remove} post={post} />
+        <PostItem key={post.id} remove={remove} item={post} />
       ))}
     </div>
   );

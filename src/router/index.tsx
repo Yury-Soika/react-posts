@@ -6,6 +6,7 @@ import Loader from '../components/UI/Loader/Loader.tsx';
 const About = lazy(() => import('../pages/About.tsx'));
 const Posts = lazy(() => import('../modules/Post/pages/Posts.tsx'));
 const PostIdPage = lazy(() => import('../modules/Post/pages/PostIdPage.tsx'));
+const Users = lazy(() => import('../modules/User/pages/Users.tsx'));
 const Login = lazy(() => import('../pages/Login.tsx'));
 
 const AppRouter: React.FC = () => {
@@ -22,6 +23,7 @@ const AppRouter: React.FC = () => {
           <>
             <Route path='/about' element={<About />} />
             <Route path='/posts' element={<Posts />} />
+            <Route path='/users' element={<Users />} />
             <Route path='/posts/:id' element={<PostIdPage />} />
             <Route path='*' element={<Navigate to='/posts' />} />
           </>

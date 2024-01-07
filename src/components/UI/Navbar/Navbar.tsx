@@ -4,10 +4,10 @@ import MyButton from '../button/MyButton';
 import { AuthContext } from '../../../context';
 
 const Navbar: React.FC = () => {
-  const { authUser, setAuthUser } = useContext(AuthContext)!;
+  const { authUser, setAuthUser } = useContext(AuthContext);
 
   const logout = () => {
-    setAuthUser({ id: 0, email: '', role: '' });
+    setAuthUser({ id: 0, email: '', role: '', authToken: '' });
     localStorage.removeItem('auth');
   };
 
@@ -17,8 +17,11 @@ const Navbar: React.FC = () => {
         <Link to='/about' className='mr-4 text-blue-500'>
           About
         </Link>
-        <Link to='/posts' className='text-blue-500'>
+        <Link to='/posts' className='mr-4 text-blue-500'>
           Posts
+        </Link>
+        <Link to='/users' className='text-blue-500'>
+          Users
         </Link>
       </div>
       {authUser.id ? (

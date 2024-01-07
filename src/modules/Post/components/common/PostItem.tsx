@@ -1,9 +1,10 @@
 import React from 'react';
 import MyButton from '../../../../components/UI/button/MyButton';
 import { useNavigate } from 'react-router-dom';
-import { PostItemProps } from '../../types';
+import { ItemProps } from '../../../../types';
+import { Post } from '../../types';
 
-const PostItem: React.FC<PostItemProps> = ({ post, remove }) => {
+const PostItem: React.FC<ItemProps<Post>> = ({ item: post, remove }) => {
   const navigate = useNavigate();
 
   const handleOpenPost = (postId: string) => {

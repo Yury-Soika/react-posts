@@ -4,14 +4,15 @@ import MyButton from '../components/UI/button/MyButton';
 import { AuthContext } from '../context';
 import { useNavigate } from 'react-router-dom';
 import { useFetching } from '../hooks/useFetching';
-import { authentication } from '../modules/Auth/services/AuthService';
+import { authentication } from '../modules/User/services/UserService';
 import { decodeToken } from '../utils';
+import { NewUser, User } from '../modules/User/types';
 
 const Login: React.FC = () => {
   const { setAuthUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<NewUser>({
     email: '',
     password: '',
   });
@@ -21,23 +22,25 @@ const Login: React.FC = () => {
     fetchAuth(user);
   };
 
-  const [fetchAuth, isAuthLoading, authError] = useFetching(async (user) => {
-    const response = await authentication(user);
+  const [fetchAuth, isAuthLoading, authError] = useFetching(
+    async (user: User) => {
+      const response = await authentication(user);
 
-    const authToken = response.data.token;
+      const authToken = response.data.token;
 
-    if (!isAuthLoading && !authError && authToken) {
-      setAuthUser(decodeToken(authToken));
+      if (!isAuthLoading && !authError && authToken) {
+        setAuthUser({ ...decodeToken(authToken), authToken });
 
-      localStorage.setItem('auth', JSON.stringify(authToken));
+        localStorage.setItem('auth', authToken);
 
-      navigate(`/posts`);
-    } else if (authError) {
-      throw new Error(authError);
-    } else {
-      throw new Error('Unexpected authentification error');
-    }
-  });
+        navigate(`/posts`);
+      } else if (authError) {
+        throw new Error(authError);
+      } else {
+        throw new Error('Unexpected authentification error');
+      }
+    },
+  );
 
   return (
     <div className='mx-64'>

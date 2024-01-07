@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { User } from '../types';
 import { decodeToken } from '../utils';
+import { AuthenticatedUser } from '../types';
 
 const useAuth = () => {
-  const [authUser, setAuthUser] = useState<User>({
+  const [authUser, setAuthUser] = useState<AuthenticatedUser>({
     id: 0,
     email: '',
     role: '',
+    authToken: '',
   });
   const [isLoading, setLoading] = useState(true);
 
@@ -14,7 +15,7 @@ const useAuth = () => {
     const authToken = localStorage.getItem('auth');
 
     if (authToken) {
-      setAuthUser(decodeToken(authToken));
+      setAuthUser({ ...decodeToken(authToken), authToken });
     }
 
     setLoading(false);
