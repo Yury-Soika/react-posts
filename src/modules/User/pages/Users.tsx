@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import UserForm from '../components/common/UserForm';
 import UserList from '../components/common/UserList';
 import { NewUser, User } from '../types';
@@ -28,9 +30,10 @@ const Users: React.FC = () => {
   const createUser = async (newUser: NewUser) => {
     try {
       await registration(newUser);
+      toast.success(`User ${newUser.email} has been created`);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
-      console.log(e.response.data.message);
+      toast.error(e.response.data.message.find(Boolean));
     }
 
     await fetchUsers(users);
@@ -38,8 +41,14 @@ const Users: React.FC = () => {
   };
 
   const removeUser = async (user: User) => {
-    setUsers(users.filter((u) => u.id !== user.id));
-    await deleteUser(authUser.authToken, user.id);
+    try {
+      await deleteUser(authUser.authToken, user.id);
+      setUsers(users.filter((u) => u.id !== user.id));
+      toast.success(`User ${user.email} has been deleted`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      toast.error(e.response.data.message.find(Boolean));
+    }
   };
 
   return (
@@ -57,6 +66,8 @@ const Users: React.FC = () => {
       {userError && <h1>Error: ${userError}</h1>}
 
       <UserList remove={removeUser} users={users} />
+
+      <ToastContainer />
 
       {isUsersLoading && (
         <div

@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import PostForm from '../components/common/PostForm';
 import PostList from '../components/common/PostList';
 import PostFilter from '../components/common/PostFilter';
@@ -55,14 +57,26 @@ const Posts: React.FC = () => {
   }, [page]);
 
   const createPost = async (newPost: Post) => {
-    setPosts([...posts, newPost]);
-    await createNewPost(newPost);
-    setModal(false);
+    try {
+      await createNewPost(newPost);
+      setPosts([...posts, newPost]);
+      toast.success(`Post ${newPost.title} has been created`);
+      setModal(false);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      toast.error(e.response.data.message.find(Boolean));
+    }
   };
 
   const removePost = async (post: Post) => {
-    setPosts(posts.filter((p) => p.id !== post.id));
-    await deletePost(post.id);
+    try {
+      await deletePost(post.id);
+      setPosts(posts.filter((p) => p.id !== post.id));
+      toast.success(`Post ${post.title} has been deleted`);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
+      toast.error(e.response.data.message.find(Boolean));
+    }
   };
 
   return (
@@ -86,6 +100,8 @@ const Posts: React.FC = () => {
         posts={sortedAndSearchedPosts}
         title='My Posts'
       />
+
+      <ToastContainer />
 
       <div ref={lastElement} />
 
