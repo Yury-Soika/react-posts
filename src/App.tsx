@@ -1,8 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './components/UI/Navbar/Navbar';
-import AppRouter from './router';
-import { AuthContext } from './context';
-import useAuth from './hooks/useAuth';
+import Navbar from './shared/components/Navbar/Navbar';
+import AppRouter from './shared/router';
+import { AuthContext } from './shared/context';
+import useAuth from './shared/hooks/useAuth';
 
 const App = () => {
   const { authUser, setAuthUser, isLoading } = useAuth();
